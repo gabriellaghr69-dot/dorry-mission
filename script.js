@@ -59,36 +59,64 @@ function typing() {
 
 typing();
 
-
 // ==========================
 // SCROLL REVEAL
 // ==========================
 
 const sections =
-  document.querySelectorAll(".reveal");
+document.querySelectorAll(".reveal");
 
 const observer =
-  new IntersectionObserver(
-    function(entries) {
+new IntersectionObserver(
+function(entries) {
 
-      entries.forEach(function(entry) {
+  entries.forEach(function(entry) {
 
-        if (entry.isIntersecting) {
-          entry.target.classList.add("visible");
-        }
-
-      });
-
-    },
-    {
-      threshold: 0.12
+    if (entry.isIntersecting) {
+      entry.target.classList.add("visible");
     }
-  );
+
+  });
+
+},
+{
+  threshold: 0.12
+}
+);
 
 sections.forEach(function(section) {
   observer.observe(section);
 });
 
+
+// ==========================
+// CHAT CARD ANIMATION
+// ==========================
+
+const chatItems =
+document.querySelectorAll(".chat-item");
+
+const chatObserver =
+new IntersectionObserver(
+function(entries) {
+
+  entries.forEach(function(entry) {
+
+    if (entry.isIntersecting) {
+      entry.target.classList.add("chat-visible");
+    }
+
+  });
+
+},
+{
+  threshold: 0.2
+}
+);
+
+chatItems.forEach(function(item) {
+  chatObserver.observe(item);
+});
 
 // ==========================
 // MUSIC BUTTON
