@@ -22,7 +22,9 @@ function typing() {
   const message = messages[messageIndex];
 
   if (!isDeleting) {
-    typingElement.textContent = message.substring(0, letterIndex + 1);
+    typingElement.textContent =
+      message.substring(0, letterIndex + 1);
+
     letterIndex++;
 
     if (letterIndex === message.length) {
@@ -34,7 +36,9 @@ function typing() {
     setTimeout(typing, 65);
 
   } else {
-    typingElement.textContent = message.substring(0, letterIndex - 1);
+    typingElement.textContent =
+      message.substring(0, letterIndex - 1);
+
     letterIndex--;
 
     if (letterIndex === 0) {
@@ -60,20 +64,26 @@ typing();
 // SCROLL REVEAL
 // ==========================
 
-const sections = document.querySelectorAll(".reveal");
+const sections =
+  document.querySelectorAll(".reveal");
 
-const observer = new IntersectionObserver(
-  function(entries) {
-    entries.forEach(function(entry) {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("visible");
-      }
-    });
-  },
-  {
-    threshold: 0.12
-  }
-);
+const observer =
+  new IntersectionObserver(
+    function(entries) {
+
+      entries.forEach(function(entry) {
+
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+        }
+
+      });
+
+    },
+    {
+      threshold: 0.12
+    }
+  );
 
 sections.forEach(function(section) {
   observer.observe(section);
@@ -84,44 +94,58 @@ sections.forEach(function(section) {
 // MUSIC BUTTON
 // ==========================
 
-const musicButton = document.getElementById("musicBtn");
-const music = document.getElementById("bgMusic");
+const musicButton =
+  document.getElementById("musicBtn");
+
+const music =
+  document.getElementById("bgMusic");
 
 if (musicButton && music) {
 
-  musicButton.addEventListener("click", function() {
+  musicButton.addEventListener(
+    "click",
+    function() {
 
-    if (music.paused) {
+      if (music.paused) {
 
-      music.play()
-        .then(function() {
-          musicButton.classList.add("playing");
+        music.play()
+          .then(function() {
 
-          const text = musicButton.querySelector("span");
+            musicButton.classList.add("playing");
 
-          if (text) {
-            text.textContent = "Music on";
-          }
-        })
-        .catch(function() {
-          alert("Music file belum ditambahkan 🎵");
-        });
+            const text =
+              musicButton.querySelector("span");
 
-    } else {
+            if (text) {
+              text.textContent = "Music on";
+            }
 
-      music.pause();
+          })
+          .catch(function() {
 
-      musicButton.classList.remove("playing");
+            alert(
+              "Music file belum ditambahkan 🎵"
+            );
 
-      const text = musicButton.querySelector("span");
+          });
 
-      if (text) {
-        text.textContent = "Music";
+      } else {
+
+        music.pause();
+
+        musicButton.classList.remove("playing");
+
+        const text =
+          musicButton.querySelector("span");
+
+        if (text) {
+          text.textContent = "Music";
+        }
+
       }
 
     }
-
-  });
+  );
 
 }
 
@@ -130,15 +154,22 @@ if (musicButton && music) {
 // STAR PARTICLES
 // ==========================
 
-const canvas = document.getElementById("stars");
+const canvas =
+  document.getElementById("stars");
 
 if (canvas) {
 
-  const ctx = canvas.getContext("2d");
+  const ctx =
+    canvas.getContext("2d");
 
   function resizeCanvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = document.documentElement.scrollHeight;
+
+    canvas.width =
+      window.innerWidth;
+
+    canvas.height =
+      document.documentElement.scrollHeight;
+
   }
 
   resizeCanvas();
@@ -148,10 +179,21 @@ if (canvas) {
   for (let i = 0; i < 140; i++) {
 
     stars.push({
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height,
-      size: Math.random() * 1.5 + 0.3,
-      opacity: Math.random() * 0.7 + 0.2
+
+      x:
+        Math.random() *
+        canvas.width,
+
+      y:
+        Math.random() *
+        canvas.height,
+
+      size:
+        Math.random() * 1.5 + 0.3,
+
+      opacity:
+        Math.random() * 0.7 + 0.2
+
     });
 
   }
@@ -178,7 +220,9 @@ if (canvas) {
       );
 
       ctx.fillStyle =
-        "rgba(255,255,255," + star.opacity + ")";
+        "rgba(255,255,255," +
+        star.opacity +
+        ")";
 
       ctx.fill();
 
@@ -189,21 +233,33 @@ if (canvas) {
 
   drawStars();
 
-  window.addEventListener("resize", resizeCanvas);
+  window.addEventListener(
+    "resize",
+    resizeCanvas
+  );
+
 }
 
 
 // ==========================
-// BACK TO TOP
+// PARALLAX EFFECT
 // ==========================
 
-window.addEventListener("scroll", function() {
+window.addEventListener(
+  "scroll",
+  function() {
 
-  const orb = document.querySelector(".orb");
+    const orb =
+      document.querySelector(".orb");
 
-  if (orb) {
-    orb.style.transform =
-      "translateY(" + window.scrollY * 0.15 + "px)";
+    if (orb) {
+
+      orb.style.transform =
+        "translateY(" +
+        window.scrollY * 0.15 +
+        "px";
+
+    }
+
   }
-
-});
+);
