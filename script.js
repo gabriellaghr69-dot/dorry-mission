@@ -291,3 +291,70 @@ window.addEventListener(
 
   }
 );
+
+/* ==========================
+   CINEMATIC CHAT ANIMATION
+   ========================== */
+
+.chat-item {
+  opacity: 0;
+  transform: translateY(60px);
+  transition:
+    opacity 0.9s ease,
+    transform 1s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.chat-item.reverse {
+  transform: translateY(60px) translateX(40px);
+}
+
+.chat-item:not(.reverse) {
+  transform: translateY(60px) translateX(-40px);
+}
+
+.chat-item.chat-visible {
+  opacity: 1;
+  transform: translateY(0) translateX(0);
+}
+
+
+/* Floating effect for the screenshot */
+
+.chat-card {
+  transition:
+    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.8s ease;
+}
+
+.chat-item.chat-visible .chat-card {
+  animation: chatFloat 5s ease-in-out infinite;
+}
+
+@keyframes chatFloat {
+
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+
+  50% {
+    transform: translateY(-7px) rotate(0.4deg);
+  }
+
+}
+
+
+/* Slight delay for the text */
+
+.chat-item .aside {
+  opacity: 0;
+  transform: translateY(15px);
+  transition:
+    opacity 0.7s ease 0.35s,
+    transform 0.7s ease 0.35s;
+}
+
+.chat-item.chat-visible .aside {
+  opacity: 1;
+  transform: translateY(0);
+}
