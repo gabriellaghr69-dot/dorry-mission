@@ -1,57 +1,223 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Mission: Earn Dorry's Forgiveness</title>
-
-    <link rel="stylesheet" href="style.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>For Ryybearry — Happy Birthday ❤️</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 </head>
-
-
 <body>
+<canvas id="stars"></canvas>
 
+<button class="music" id="musicBtn">♫ <span>Music</span></button>
+<audio id="bgMusic" loop>
+  <source src="assets/music.mp3" type="audio/mpeg">
+</audio>
 
-<div class="mission-card" id="app">
+<section class="hero">
+  <div class="orb"></div>
+  <p class="eyebrow">A little something for you</p>
+  <h1>Hey,<br><span>birthday boy.</span></h1>
+  <p class="typing" id="typing"></p>
+  <button class="open" onclick="document.querySelector('#childhood').scrollIntoView({behavior:'smooth'})">
+    open your surprise 🎁
+  </button>
+  <small>scroll slowly ↓</small>
+</section>
 
-    <div class="lock">
-        🔒
+<section id="childhood" class="reveal childhood">
+  <div class="label">01 / BEFORE I KNEW YOU</div>
+  <div class="child-grid">
+    <div class="polaroid">
+      <div class="tape"></div>
+      <img src="assets/childhood.jpg" alt="Ryan as a child">
+      <div>the birthday boy, a long time ago ♡</div>
     </div>
+    <div class="copy">
+      <p class="eyebrow">look at you...</p>
+      <h2>So little.<br><span>So cute.</span></h2>
+      <p>
+        You had absolutely no idea that one day you'd grow up to become
+        someone's favorite person.
+      </p>
+      <p>
+        And somehow, years later, I got lucky enough to meet you.
+      </p>
+      <p class="hand">Still cute.<br>Still annoying.<br>Just... older. 😂</p>
+    </div>
+  </div>
+</section>
 
+<section class="reveal story-intro">
+  <div class="label">02 / OUR STORY</div>
+  <div class="center">
+    <p class="eyebrow">from a stranger...</p>
+    <h2>...to <span>this.</span></h2>
+    <p>Every conversation. Every memory. Every stupid, sweet, dramatic little moment.</p>
+    <p class="blue">So I kept the receipts. 💬</p>
+  </div>
+</section>
 
-    <h1>
-        Private Access
-    </h1>
+<section class="reveal timeline">
+  <div class="label">03 / OUR STORY, IN SCREENSHOTS</div>
+  <div class="timeline-wrap">
 
+    <article class="chat-item">
+      <div class="chapter"><b>01</b><span>Aku Dramatic</span></div>
+      <div class="chat-card tilt-left">
+        <img src="assets/chat-01-aku-dramatic.jpg" alt="Aku Dramatic chat">
+      </div>
+      <p class="aside">Yes, I was dramatic.<br><span>From the start. 😂</span></p>
+    </article>
 
-    <p class="subtitle">
-        This website is only for...
+    <article class="chat-item reverse">
+      <div class="chapter"><b>02</b><span>From Stranger</span></div>
+      <div class="chat-card tilt-right">
+        <img src="assets/chat-02-from-stranger.jpg" alt="From Stranger chat">
+      </div>
+      <p class="aside">And somewhere between<br>“good morning” and “morning morning”...<br><span>you became familiar.</span></p>
+    </article>
+
+    <article class="chat-item">
+      <div class="chapter"><b>03</b><span>He Wanna Meet Me</span></div>
+      <div class="chat-card tilt-left">
+        <img src="assets/chat-03-he-wanna-meet-me.jpg" alt="He Wanna Meet Me chat">
+      </div>
+      <p class="aside">Talking about someday.<br>Talking about us.<br><span>Talking about meeting.</span> 🤍</p>
+    </article>
+
+    <article class="chat-item reverse">
+      <div class="chapter"><b>04</b><span>To This Chat</span></div>
+      <div class="chat-card tilt-right">
+        <img src="assets/chat-04-to-this-chat.jpg" alt="To This Chat">
+      </div>
+      <p class="aside">From the first little conversations<br>to this chat right now...<br><span>we made it here.</span></p>
+    </article>
+
+  </div>
+</section>
+
+<section class="reveal ldr">
+  <div class="label">04 / THE HARD PART</div>
+  <div class="center">
+    <div class="moon">☾</div>
+    <p class="eyebrow">the distance</p>
+    <h2>Loving you from<br><span>far away.</span></h2>
+    <p>No spontaneous hugs. No random dates. No “I'm outside, come down.”</p>
+    <p>Just screens, calls, messages, waiting, missing each other, and two people trying to make distance feel smaller.</p>
+    <p class="big">And somehow...<br><span>we did.</span></p>
+  </div>
+</section>
+
+<section class="reveal pride">
+  <div class="label">05 / WHAT I WANT YOU TO KNOW</div>
+  <div class="center">
+    <p class="eyebrow">this part is serious</p>
+    <h2>I'm proud<br><span>of you.</span></h2>
+    <p>I may not always be there physically to see every little step you take, but I see your effort. I see how far you've come.</p>
+    <p>We've had hard days, misunderstandings, busy days and moments when the distance felt extra unfair.</p>
+    <p class="hand big-hand">But we're still here.<br>And I'm proud of us.</p>
+  </div>
+</section>
+
+<section class="reveal us">
+  <div class="label">06 / A LITTLE PIECE OF US</div>
+  <div class="center">
+    <p class="eyebrow">maybe this is the closest thing to us for now...</p>
+    <h2>Different heights.<br><span>Same heartbeat.</span></h2>
+    <div class="us-photo">
+      <div class="glow"></div>
+      <img src="assets/us-illustration.png" alt="Illustration of Ryan and Gaby together">
+    </div>
+    <p class="hand caption">23 cm apart in height.<br>A whole world apart in distance.<br>Still, somehow, together. 🤍</p>
+  </div>
+</section>
+
+<section class="reveal wishes">
+  <div class="label">07 / MY WISH FOR YOU</div>
+  <div class="center">
+    <p class="eyebrow">for your new chapter</p>
+    <h2>I wish you...</h2>
+    <div class="wish-grid">
+      <div>🌙 <b>Peace</b><small>when life feels heavy.</small></div>
+      <div>🌱 <b>Growth</b><small>that makes you proud.</small></div>
+      <div>✨ <b>Happiness</b><small>that stays.</small></div>
+      <div>🎯 <b>Courage</b><small>to chase what you want.</small></div>
+      <div>🤍 <b>Good people</b><small>who genuinely love you.</small></div>
+      <div>💭 <b>Dreams</b><small>slowly becoming reality.</small></div>
+    </div>
+  </div>
+</section>
+
+<section class="reveal future">
+  <div class="label">08 / ONE DAY</div>
+  <div class="center">
+    <p class="eyebrow">I keep thinking about this</p>
+    <h2>One day,<br><span>I'll say it beside you.</span></h2>
+    <p>Not through a screen.<br>Not through a call.<br>Not through a message.</p>
+    <div class="quote">“Happy birthday, idiot.<br>I finally get to say this in person.”</div>
+  </div>
+</section>
+
+<section class="reveal letter-section">
+  <div class="label">09 / FROM DORRY</div>
+  <article class="letter">
+    <p class="date">August 12, 2026</p>
+    <h2>Dear Ryybearry,</h2>
+    <p>Happy birthday, baby. 🤍</p>
+    <p>
+      Today is your day — the day the world got a little luckier because you
+      were born. And somehow, I got lucky enough to meet you, love you,
+      annoy you, miss you, laugh with you, and still choose you every single time.
     </p>
-
-
-    <h2>
-        Ryan Robert Watt ❤️
-    </h2>
-
-
-    <button id="startBtn">
-        Start Mission 🚀
-    </button>
-
-
-    <p class="footer">
-        Made by Dorry, who waited for your call. 🤍
+    <p>
+      We haven't even had the chance to meet face to face yet. And I know
+      our story hasn't always been easy. Distance can be unfair. There are
+      days when I wish you were simply here, close enough that I could say
+      “come here” and actually hug you.
     </p>
+    <p>
+      But look at us. We're still here. And I'm genuinely proud of us.
+      Proud of how far we've made it, proud of you, and proud that somewhere
+      in this huge world, our paths found each other.
+    </p>
+    <p>
+      My wish for you is simple: I hope this new age brings you closer to
+      your dreams. I hope you have more reasons to smile, more courage when
+      things get hard, more peace when life feels heavy, and more moments
+      that make you proud of the person you're becoming.
+    </p>
+    <p>
+      And selfishly... I hope there is still a place for me in all the
+      beautiful things waiting for you in the future.
+    </p>
+    <p>
+      One day, I hope I won't have to celebrate your birthday through a
+      screen anymore. One day I'll be able to look at you and say,
+      “Happy birthday, idiot,” right there beside you.
+    </p>
+    <p>Until then, I'll keep loving you from wherever I am.</p>
+    <p class="signature">I love you.<br><span>— Dorry ♡</span></p>
+  </article>
+</section>
 
-
-</div>
-
-
+<section class="reveal ending">
+  <div class="heart">♥</div>
+  <p>Happy Birthday, my Ryybearry.</p>
+  <h2>Another year older.<br>Another year loved.</h2>
+  <div class="receipt">
+    <span>AGE</span><b>+1</b>
+    <span>LOVE</span><b>+∞</b>
+    <span>ANNOYING LEVEL</span><b>MAXIMUM</b>
+    <span>GIRLFRIEND AGE ADVANTAGE</span><b>STILL ACTIVE</b>
+  </div>
+  <p class="hand final">You're older now...<br>but I'm <i>STILL</i> older than you. 😭👑</p>
+  <button onclick="scrollTo({top:0,behavior:'smooth'})">↻ read it again</button>
+</section>
 
 <script src="script.js"></script>
-
 </body>
-
 </html>
