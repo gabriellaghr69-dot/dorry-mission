@@ -1,352 +1,209 @@
-// ================================
 // RYYBEARRY BIRTHDAY WEBSITE
-// Interactive scroll + particles
-// ================================
 
-
-// --------------------------------
-// TYPING ANIMATION
-// --------------------------------
-
-const typingText = [
-  "I made something for you...",
-  "because apparently saying happy birthday wasn't enough.",
-  "So... here we are. ❤️"
-];
+// ==========================
+// TYPING EFFECT
+// ==========================
 
 const typingElement = document.getElementById("typing");
 
-let textIndex = 0;
-let charIndex = 0;
-let deleting = false;
+const messages = [
+  "I made something for you...",
+  "because apparently, saying happy birthday wasn't enough.",
+  "So... here we are. ❤️"
+];
 
-function typeWriter() {
+let messageIndex = 0;
+let letterIndex = 0;
+let isDeleting = false;
 
-  const currentText = typingText[textIndex];
+function typing() {
+  if (!typingElement) return;
 
-  if (!deleting) {
+  const message = messages[messageIndex];
 
-    typingElement.textContent =
-      currentText.substring(0, charIndex + 1);
+  if (!isDeleting) {
+    typingElement.textContent = message.substring(0, letterIndex + 1);
+    letterIndex++;
 
-    charIndex++;
-
-    if (charIndex === currentText.length) {
-
-      deleting = true;
-
-      setTimeout(typeWriter, 1800);
+    if (letterIndex === message.length) {
+      isDeleting = true;
+      setTimeout(typing, 1800);
       return;
     }
 
+    setTimeout(typing, 65);
+
   } else {
+    typingElement.textContent = message.substring(0, letterIndex - 1);
+    letterIndex--;
 
-    typingElement.textContent =
-      currentText.substring(0, charIndex - 1);
+    if (letterIndex === 0) {
+      isDeleting = false;
+      messageIndex++;
 
-    charIndex--;
-
-    if (charIndex === 0) {
-
-      deleting = false;
-
-      textIndex++;
-
-      if (textIndex >= typingText.length) {
-        textIndex = 0;
+      if (messageIndex >= messages.length) {
+        messageIndex = 0;
       }
 
+      setTimeout(typing, 400);
+      return;
     }
 
+    setTimeout(typing, 35);
   }
-
-  setTimeout(
-    typeWriter,
-    deleting ? 35 : 65
-  );
 }
 
-typeWriter();
+typing();
 
 
-// --------------------------------
+// ==========================
 // SCROLL REVEAL
-// --------------------------------
+// ==========================
 
-const revealElements =
-  document.querySelectorAll(".reveal");
+const sections = document.querySelectorAll(".reveal");
 
-const observer =
-  new IntersectionObserver(
-    (entries) => {
+const observer = new IntersectionObserver(
+  function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+      }
+    });
+  },
+  {
+    threshold: 0.12
+  }
+);
 
-      entries.forEach((entry) => {
-
-        if (entry.isIntersecting) {
-
-          entry.target.classList.add("visible");
-
-        }
-
-      });
-
-    },
-    {
-      threshold: 0.12
-    }
-  );
-
-
-revealElements.forEach((element) => {
-  observer.observe(element);
+sections.forEach(function(section) {
+  observer.observe(section);
 });
 
 
-// --------------------------------
-// MUSIC
-// --------------------------------
+// ==========================
+// MUSIC BUTTON
+// ==========================
 
-const musicButton =
-  document.getElementById("musicBtn");
+const musicButton = document.getElementById("musicBtn");
+const music = document.getElementById("bgMusic");
 
-const music =
-  document.getElementById("bgMusic");
+if (musicButton && music) {
 
-let musicPlaying = false;
+  musicButton.addEventListener("click", function() {
 
-musicButton.addEventListener(
-  "click",
-  () => {
-
-    if (!musicPlaying) {
+    if (music.paused) {
 
       music.play()
-        .then(() => {
-
-          musicPlaying = true;
-
+        .then(function() {
           musicButton.classList.add("playing");
 
-          musicButton.querySelector("span").textContent =
-            "Music on";
+          const text = musicButton.querySelector("span");
 
+          if (text) {
+            text.textContent = "Music on";
+          }
         })
-        .catch(() => {
-
-          alert(
-            "Add your music file as Assets/music.mp3 first 🎵"
-          );
-
+        .catch(function() {
+          alert("Music file belum ditambahkan 🎵");
         });
 
     } else {
 
       music.pause();
 
-      musicPlaying = false;
-
       musicButton.classList.remove("playing");
 
-      musicButton.querySelector("span").textContent =
-        "Music";
+      const text = musicButton.querySelector("span");
 
-    }
-
-  }
-);
-
-
-// --------------------------------
-// STAR PARTICLES
-// --------------------------------
-
-const canvas =
-  document.getElementById("stars");
-
-const ctx =
-  canvas.getContext("2d");
-
-let stars = [];
-
-function resizeCanvas() {
-
-  canvas.width =
-    window.innerWidth;
-
-  canvas.height =
-    document.body.scrollHeight;
-
-}
-
-function createStars() {
-
-  stars = [];
-
-  const amount =
-    Math.min(
-      180,
-      Math.floor(
-        window.innerWidth * 0.15
-      )
-    );
-
-  for (let i = 0; i < amount; i++) {
-
-    stars.push({
-
-      x:
-        Math.random() *
-        canvas.width,
-
-      y:
-        Math.random() *
-        canvas.height,
-
-      size:
-        Math.random() * 1.8 + 0.3,
-
-      speed:
-        Math.random() * 0.25 + 0.05,
-
-      opacity:
-        Math.random() * 0.7 + 0.2,
-
-      twinkle:
-        Math.random() * 0.02 + 0.005
-
-    });
-
-  }
-
-}
-
-function animateStars() {
-
-  ctx.clearRect(
-    0,
-    0,
-    canvas.width,
-    canvas.height
-  );
-
-  stars.forEach((star) => {
-
-    star.opacity +=
-      Math.sin(
-        Date.now() * star.twinkle
-      ) * 0.003;
-
-    ctx.beginPath();
-
-    ctx.arc(
-      star.x,
-      star.y,
-      star.size,
-      0,
-      Math.PI * 2
-    );
-
-    ctx.fillStyle =
-      `rgba(255,255,255,${star.opacity})`;
-
-    ctx.fill();
-
-    star.y -= star.speed;
-
-    if (star.y < 0) {
-
-      star.y =
-        canvas.height;
+      if (text) {
+        text.textContent = "Music";
+      }
 
     }
 
   });
 
-  requestAnimationFrame(
-    animateStars
-  );
-
 }
 
-resizeCanvas();
-createStars();
-animateStars();
 
-window.addEventListener(
-  "resize",
-  () => {
+// ==========================
+// STAR PARTICLES
+// ==========================
 
-    resizeCanvas();
-    createStars();
+const canvas = document.getElementById("stars");
+
+if (canvas) {
+
+  const ctx = canvas.getContext("2d");
+
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = document.documentElement.scrollHeight;
+  }
+
+  resizeCanvas();
+
+  const stars = [];
+
+  for (let i = 0; i < 140; i++) {
+
+    stars.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      size: Math.random() * 1.5 + 0.3,
+      opacity: Math.random() * 0.7 + 0.2
+    });
 
   }
-);
 
+  function drawStars() {
 
-// --------------------------------
-// PARALLAX EFFECT
-// --------------------------------
+    ctx.clearRect(
+      0,
+      0,
+      canvas.width,
+      canvas.height
+    );
 
-window.addEventListener(
-  "scroll",
-  () => {
+    stars.forEach(function(star) {
 
-    const scroll =
-      window.scrollY;
+      ctx.beginPath();
 
-    const orb =
-      document.querySelector(".orb");
+      ctx.arc(
+        star.x,
+        star.y,
+        star.size,
+        0,
+        Math.PI * 2
+      );
 
-    if (orb) {
+      ctx.fillStyle =
+        "rgba(255,255,255," + star.opacity + ")";
 
-      orb.style.transform =
-        `translateY(${scroll * 0.18}px)`;
+      ctx.fill();
 
-    }
+    });
 
+    requestAnimationFrame(drawStars);
   }
-);
+
+  drawStars();
+
+  window.addEventListener("resize", resizeCanvas);
+}
 
 
-// --------------------------------
-// SMOOTH IMAGE ENTRANCE
-// --------------------------------
+// ==========================
+// BACK TO TOP
+// ==========================
 
-const images =
-  document.querySelectorAll(
-    ".chat-card img, .polaroid img, .us-photo img"
-  );
+window.addEventListener("scroll", function() {
 
-images.forEach((img) => {
+  const orb = document.querySelector(".orb");
 
-  img.addEventListener(
-    "load",
-    () => {
-
-      img.classList.add("loaded");
-
-    }
-  );
+  if (orb) {
+    orb.style.transform =
+      "translateY(" + window.scrollY * 0.15 + "px)";
+  }
 
 });
-
-
-// --------------------------------
-// FINAL LITTLE SURPRISE
-// --------------------------------
-
-const ending =
-  document.querySelector(".ending");
-
-if (ending) {
-
-  ending.addEventListener(
-    "mouseenter",
-    () => {
-
-      ending.classList.add("heart-beat");
-
-    }
-  );
-
-}
