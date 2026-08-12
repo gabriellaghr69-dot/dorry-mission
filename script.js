@@ -1,230 +1,198 @@
-// RYYBEARRY BIRTHDAY WEBSITE
+// =========================================
+// RYYBEARRY — INTERACTIONS
+// =========================================
 
-// ==========================
-// TYPING EFFECT
-// ==========================
 
-const typingElement = document.getElementById("typing");
+// =========================================
+// TYPING ANIMATION
+// =========================================
 
-const messages = [
-  "I made something for you...",
-  "because apparently, saying happy birthday wasn't enough.",
-  "So... here we are. ❤️"
-];
+const typingText = document.getElementById("typing");
 
-let messageIndex = 0;
-let letterIndex = 0;
-let isDeleting = false;
+const message =
+  "A little corner of the internet, made just for you. ♡";
+
+let typingIndex = 0;
 
 function typing() {
-  if (!typingElement) return;
 
-  const message = messages[messageIndex];
+  if (!typingText) return;
 
-  if (!isDeleting) {
-    typingElement.textContent =
-      message.substring(0, letterIndex + 1);
+  if (typingIndex < message.length) {
 
-    letterIndex++;
+    typingText.textContent += message.charAt(typingIndex);
 
-    if (letterIndex === message.length) {
-      isDeleting = true;
-      setTimeout(typing, 1800);
-      return;
-    }
+    typingIndex++;
 
-    setTimeout(typing, 65);
+    setTimeout(typing, 45);
 
-  } else {
-    typingElement.textContent =
-      message.substring(0, letterIndex - 1);
-
-    letterIndex--;
-
-    if (letterIndex === 0) {
-      isDeleting = false;
-      messageIndex++;
-
-      if (messageIndex >= messages.length) {
-        messageIndex = 0;
-      }
-
-      setTimeout(typing, 400);
-      return;
-    }
-
-    setTimeout(typing, 35);
   }
+
 }
 
 typing();
 
-// ==========================
+
+// =========================================
 // SCROLL REVEAL
-// ==========================
+// =========================================
 
-const sections =
-document.querySelectorAll(".reveal");
+const sections = document.querySelectorAll(".reveal");
 
-const observer =
-new IntersectionObserver(
-function(entries) {
+const observer = new IntersectionObserver(
+  function(entries) {
 
-  entries.forEach(function(entry) {
+    entries.forEach(function(entry) {
 
-    if (entry.isIntersecting) {
-      entry.target.classList.add("visible");
-    }
+      if (entry.isIntersecting) {
 
-  });
-
-},
-{
-  threshold: 0.12
-}
-);
-
-sections.forEach(function(section) {
-  observer.observe(section);
-});
-
-
-// ==========================
-// CHAT CARD ANIMATION
-// ==========================
-
-const chatItems =
-document.querySelectorAll(".chat-item");
-
-const chatObserver =
-new IntersectionObserver(
-function(entries) {
-
-  entries.forEach(function(entry) {
-
-    if (entry.isIntersecting) {
-      entry.target.classList.add("chat-visible");
-    }
-
-  });
-
-},
-{
-  threshold: 0.2
-}
-);
-
-chatItems.forEach(function(item) {
-  chatObserver.observe(item);
-});
-
-// ==========================
-// MUSIC BUTTON
-// ==========================
-
-const musicButton =
-  document.getElementById("musicBtn");
-
-const music =
-  document.getElementById("bgMusic");
-
-if (musicButton && music) {
-
-  musicButton.addEventListener(
-    "click",
-    function() {
-
-      if (music.paused) {
-
-        music.play()
-          .then(function() {
-
-            musicButton.classList.add("playing");
-
-            const text =
-              musicButton.querySelector("span");
-
-            if (text) {
-              text.textContent = "Music on";
-            }
-
-          })
-          .catch(function() {
-
-            alert(
-              "Music file belum ditambahkan 🎵"
-            );
-
-          });
-
-      } else {
-
-        music.pause();
-
-        musicButton.classList.remove("playing");
-
-        const text =
-          musicButton.querySelector("span");
-
-        if (text) {
-          text.textContent = "Music";
-        }
+        entry.target.classList.add("visible");
 
       }
 
+    });
+
+  },
+  {
+    threshold: 0.12
+  }
+);
+
+
+sections.forEach(function(section) {
+
+  observer.observe(section);
+
+});
+
+
+// =========================================
+// CHAT REVEAL
+// =========================================
+
+const chatItems = document.querySelectorAll(".chat-item");
+
+const chatObserver = new IntersectionObserver(
+  function(entries) {
+
+    entries.forEach(function(entry) {
+
+      if (entry.isIntersecting) {
+
+        entry.target.classList.add("visible");
+
+      }
+
+    });
+
+  },
+  {
+    threshold: 0.15
+  }
+);
+
+
+chatItems.forEach(function(item) {
+
+  item.classList.add("reveal");
+
+  chatObserver.observe(item);
+
+});
+
+
+// =========================================
+// MUSIC
+// =========================================
+
+const musicBtn = document.getElementById("musicBtn");
+const bgMusic = document.getElementById("bgMusic");
+
+if (musicBtn && bgMusic) {
+
+  musicBtn.addEventListener("click", function() {
+
+    if (bgMusic.paused) {
+
+      bgMusic.play();
+
+      musicBtn.classList.add("playing");
+
+      musicBtn.innerHTML = "♫ <span>Music on</span>";
+
+    } else {
+
+      bgMusic.pause();
+
+      musicBtn.classList.remove("playing");
+
+      musicBtn.innerHTML = "♫ <span>Music</span>";
+
     }
-  );
+
+  });
 
 }
 
 
-// ==========================
-// STAR PARTICLES
-// ==========================
+// =========================================
+// STAR BACKGROUND
+// =========================================
 
-const canvas =
-  document.getElementById("stars");
+const canvas = document.getElementById("stars");
 
 if (canvas) {
 
-  const ctx =
-    canvas.getContext("2d");
+  const ctx = canvas.getContext("2d");
+
+  let stars = [];
 
   function resizeCanvas() {
 
-    canvas.width =
-      window.innerWidth;
-
-    canvas.height =
-      document.documentElement.scrollHeight;
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
 
   }
 
   resizeCanvas();
 
-  const stars = [];
+  window.addEventListener("resize", resizeCanvas);
 
-  for (let i = 0; i < 140; i++) {
 
-    stars.push({
+  function createStars() {
 
-      x:
-        Math.random() *
-        canvas.width,
+    stars = [];
 
-      y:
-        Math.random() *
-        canvas.height,
+    const amount =
+      Math.min(
+        180,
+        Math.floor(
+          (window.innerWidth * window.innerHeight) / 9000
+        )
+      );
 
-      size:
-        Math.random() * 1.5 + 0.3,
+    for (let i = 0; i < amount; i++) {
 
-      opacity:
-        Math.random() * 0.7 + 0.2
+      stars.push({
 
-    });
+        x: Math.random() * canvas.width,
+
+        y: Math.random() * canvas.height,
+
+        size: Math.random() * 1.5 + 0.3,
+
+        opacity: Math.random() * 0.7 + 0.2,
+
+        speed: Math.random() * 0.01 + 0.002
+
+      });
+
+    }
 
   }
+
+  createStars();
+
 
   function drawStars() {
 
@@ -236,6 +204,9 @@ if (canvas) {
     );
 
     stars.forEach(function(star) {
+
+      star.opacity +=
+        Math.sin(Date.now() * star.speed) * 0.002;
 
       ctx.beginPath();
 
@@ -249,7 +220,7 @@ if (canvas) {
 
       ctx.fillStyle =
         "rgba(255,255,255," +
-        star.opacity +
+        Math.max(0.1, star.opacity) +
         ")";
 
       ctx.fill();
@@ -257,104 +228,9 @@ if (canvas) {
     });
 
     requestAnimationFrame(drawStars);
+
   }
 
   drawStars();
 
-  window.addEventListener(
-    "resize",
-    resizeCanvas
-  );
-
-}
-
-
-// ==========================
-// PARALLAX EFFECT
-// ==========================
-
-window.addEventListener(
-  "scroll",
-  function() {
-
-    const orb =
-      document.querySelector(".orb");
-
-    if (orb) {
-
-      orb.style.transform =
-        "translateY(" +
-        window.scrollY * 0.15 +
-        "px";
-
-    }
-
-  }
-);
-
-/* ==========================
-   CINEMATIC CHAT ANIMATION
-   ========================== */
-
-.chat-item {
-  opacity: 0;
-  transform: translateY(60px);
-  transition:
-    opacity 0.9s ease,
-    transform 1s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.chat-item.reverse {
-  transform: translateY(60px) translateX(40px);
-}
-
-.chat-item:not(.reverse) {
-  transform: translateY(60px) translateX(-40px);
-}
-
-.chat-item.chat-visible {
-  opacity: 1;
-  transform: translateY(0) translateX(0);
-}
-
-
-/* Floating effect for the screenshot */
-
-.chat-card {
-  transition:
-    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1),
-    box-shadow 0.8s ease;
-}
-
-.chat-item.chat-visible .chat-card {
-  animation: chatFloat 5s ease-in-out infinite;
-}
-
-@keyframes chatFloat {
-
-  0%,
-  100% {
-    transform: translateY(0) rotate(0deg);
-  }
-
-  50% {
-    transform: translateY(-7px) rotate(0.4deg);
-  }
-
-}
-
-
-/* Slight delay for the text */
-
-.chat-item .aside {
-  opacity: 0;
-  transform: translateY(15px);
-  transition:
-    opacity 0.7s ease 0.35s,
-    transform 0.7s ease 0.35s;
-}
-
-.chat-item.chat-visible .aside {
-  opacity: 1;
-  transform: translateY(0);
 }
