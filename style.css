@@ -1224,3 +1224,66 @@ section {
     padding: 18px;
   }
 }
+
+/* =========================================
+   FINAL POLISH — CHAT
+========================================= */
+
+.chat-card {
+  will-change: transform, opacity;
+}
+
+.chat-item.reveal.visible .chat-card {
+  animation:
+    chatEntrance 1s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes chatEntrance {
+
+  from {
+    opacity: 0;
+    transform:
+      translateY(30px)
+      scale(0.96)
+      rotate(-1deg);
+  }
+
+  to {
+    opacity: 1;
+  }
+
+}
+
+
+/* =========================================
+   MUSIC — SOFT PULSE
+========================================= */
+
+.music.playing {
+  animation:
+    musicPulse 2.5s ease-in-out infinite;
+}
+
+@keyframes musicPulse {
+
+  0%,
+  100% {
+    box-shadow:
+      0 0 0 rgba(125, 184, 255, 0);
+  }
+
+  50% {
+    box-shadow:
+      0 0 25px rgba(125, 184, 255, 0.18);
+  }
+
+}
+
+
+/* =========================================
+   STARFIELD — SOFT BLEND
+========================================= */
+
+#stars {
+  mix-blend-mode: screen;
+}
